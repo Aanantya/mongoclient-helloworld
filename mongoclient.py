@@ -3,6 +3,7 @@ from pymongo import MongoClient
 import datetime
 import pprint
 import argparse
+isTrue = lambda  val : True if val.lower() in ['true', '1', 't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh', 'on'] else False
 
 class MongoDBMgr:
     def __init__(self, ip='127.0.0.1', port=27017, db='test_database'):
@@ -41,10 +42,10 @@ def main():
                            help='Check test data', default='yes')
     args = parser.parse_args()
     mongoDBMgr = MongoDBMgr(args.ip, args.port)
-    if args.add == "yes":
+    if isTrue(args.add.lower()):
         print("Inserting a test data")
         mongoDBMgr.insert_test_data()
-    if args.fetch == "yes":
+    if isTrue(args.fetch.lower()):
         print("Fetching test data")
         mongoDBMgr.find_one()
 
