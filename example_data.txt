@@ -1,0 +1,1 @@
+{"author": "Hello", "text": "My first blog post!","tags": ["mongodb", "python", "pymongo"]}
