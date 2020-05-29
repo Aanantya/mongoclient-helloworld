@@ -30,7 +30,7 @@ class MongoDBMgr:
 	
 
 def main():
-    parser = argparse.ArgumentParser(description='Mongodb hello world')
+    parser = argparse.ArgumentParser(description='Mongodb hello world', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--ip', metavar='N', type=str,
                            help='Mongo server IP', default='localhost')
     parser.add_argument('--port', metavar='N', type=int,
