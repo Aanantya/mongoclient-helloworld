@@ -14,6 +14,8 @@ python3 mongoclient.py --ip 154.3.80.114
 ## Advanced
 In this example, I will add a custom entry using a file
 
+python3 mongoclient.py --ip test.com --postdata "$(cat data.txt)"
+
 **(envmongo)$ cat data.txt**
 
 {"author": "Hello", "text": "My first blog post!","tags": ["mongodb", "python", "pymongo"]}
