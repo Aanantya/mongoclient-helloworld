@@ -51,18 +51,20 @@ def main():
     parser.add_argument('--port', metavar='N', type=int,
                            help='Mongo server Port', default=27017)
     parser.add_argument('--post', metavar='N', type=str,
-                           help='Post test data', default='no')
+                           help='Post test data', default='yes')
     parser.add_argument('--postdata', metavar='N', type=str,
                            help='Post Data value', default=None)
     parser.add_argument('--fetch', metavar='N', type=str,
                            help='Check test data', default='yes')
     args = parser.parse_args()
     mongoDBMgr = MongoDBMgr(args.ip, args.port)
-    postdata = TestData.post
+    postdata = None
     if args.postdata:
         postdata = json.loads(args.postdata)
         postdata['date'] = datetime.datetime.utcnow()
-    if isTrue(args.post.lower()) or postdata:
+    elif isTrue(args.post.lower()):
+        postdata = TestData.post
+    if postdata:
         print("Inserting a test data")
         mongoDBMgr.insert_test_data(post = postdata)
     if isTrue(args.fetch.lower()):
