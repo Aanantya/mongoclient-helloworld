@@ -1,5 +1,5 @@
 # mongodb-helloworld
-hello world code for mongoldb
+hello world code for mongodb 
 
 # How to test
 
