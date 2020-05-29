@@ -22,7 +22,7 @@ In this example, I will add a custom entry using a file
 
 README.md	data.txt	mongoclient.py
 
-**(envmongo)$ python3 mongoclient.py --ip sarvat.com --postdata  "$(cat data.txt)"**
+**(envmongo)$ python3 mongoclient.py --ip test.com --postdata  "$(cat data.txt)"**
 
 Inserting a test data
 
