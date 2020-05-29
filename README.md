@@ -3,7 +3,7 @@ hello world code for mongoldb
 
 # How to test
 
-* Create venv and Install pymongo
+* Install pymongo in your machine (preferrably python virtual env which helps to keep setup not interfered with others)
 * Run python3 mongoclient.py --help
 
 # Example
