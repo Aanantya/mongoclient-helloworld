@@ -16,13 +16,16 @@ class TestData:
 
 class MongoDBMgr:
 
-    def __init__(self, ip='127.0.0.1', port=27017, db='test_database'):
-      self.client = self.__connect_db(ip, port)
+    def __init__(self, secure_mode, ip='127.0.0.1', port=27017, db='test_database'):
+      self.client = self.__connect_db(ip=ip, port=port, secure_mode=secure_mode)
       self.db = self.client[db]
       self.post_id = None
   
-    def __connect_db(self, ip='127.0.0.1', port=27017, secure_mode=True, ssl_ca_certs='./ssl/rootCA.pem'):
-        return MongoClient(ip, port, ssl=secure_mode, ssl_cert_reqs=ssl.CERT_NONE, ssl_ca_certs=ssl_ca_certs)
+    def __connect_db(self, ip='127.0.0.1', port=27017, secure_mode="true", ssl_ca_certs='./ssl/rootCA.pem'):
+        if secure_mode == "true":
+            return MongoClient(ip, port, ssl=secure_mode, ssl_cert_reqs=ssl.CERT_NONE, ssl_ca_certs=ssl_ca_certs)
+        else:
+            return MongoClient(ip, port)
         
 
     def insert_test_data(self, post = TestData.post):
@@ -51,6 +54,8 @@ def main():
                            help='Mongo server IP', default='localhost')
     parser.add_argument('--port', metavar='N', type=int,
                            help='Mongo server Port', default=27017)
+    parser.add_argument('--secureMode', metavar='N', type=str,
+                           help='enable/disable secure mode', default='true')
     parser.add_argument('--post', metavar='N', type=str,
                            help='Post test data', default='yes')
     parser.add_argument('--postdata', metavar='N', type=str,
@@ -58,7 +63,7 @@ def main():
     parser.add_argument('--fetch', metavar='N', type=str,
                            help='Check test data', default='yes')
     args = parser.parse_args()
-    mongoDBMgr = MongoDBMgr(args.ip, args.port)
+    mongoDBMgr = MongoDBMgr(ip=args.ip, port=args.port, secure_mode=args.secureMode)
     postdata = None
     if args.postdata:
         postdata = json.loads(args.postdata)
