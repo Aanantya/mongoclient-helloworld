@@ -4,6 +4,7 @@ import datetime
 import pprint
 import argparse
 import json
+import ssl
 isTrue = lambda  val : True if val.lower() in ['true', '1', 't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh', 'on'] else False
 
 class TestData:
@@ -20,8 +21,8 @@ class MongoDBMgr:
       self.db = self.client[db]
       self.post_id = None
   
-    def __connect_db(self, ip='127.0.0.1', port=27017):
-        return MongoClient(ip, port)
+    def __connect_db(self, ip='127.0.0.1', port=27017, secure_mode=True, ssl_ca_certs='./ssl/rootCA.pem'):
+        return MongoClient(ip, port, ssl=secure_mode, ssl_cert_reqs=ssl.CERT_NONE, ssl_ca_certs=ssl_ca_certs)
         
 
     def insert_test_data(self, post = TestData.post):
